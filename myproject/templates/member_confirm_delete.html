@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container mt-4">
+    <h1>Confirm Delete</h1>
+    <p>Are you sure you want to delete member <strong>{{ member.fname }} {{ member.lname }}</strong> ({{ member.email }})?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger">Delete</button>
+        <a class="btn btn-secondary" href="{% url 'home' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}
