@@ -4,14 +4,22 @@
            {% csrf_token %}
            <button type="submit">Logout</button>
        </form>
+
+{% else %}
+       <a href="{% url 'login' %}">Login</a>    
+       <a href="{% url 'signup' %}">Register</a>
 {% endif %}
 
 {% for post in posts %}
-{{post.title}}
-<br>
-{{post.content|truncatewords:20}}
-{% if post.image %}
-    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+
+{% if post.image and post.image.url %}
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" width="300" style="max-width: 100%; height: auto;">
+    <br>
 {% endif %}
-{{post.author.username}} at - {{post.created_at}}
+{{ post.title|truncatewords:10 }}
+<br>
+By {{ post.author.username }} at - {{ post.created_at }}<br>
+{{ post.content|truncatewords:20 }}<br>
+<a href="{% url 'post_detail' post.id %}">Read More</a>
+
 {% endfor %}
